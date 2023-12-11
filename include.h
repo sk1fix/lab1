@@ -4,6 +4,45 @@
 #include <random>
 #include <limits>
 using namespace std;
+
+template <typename T>
+std::uniform_int_distribution<T> getDice(std::true_type)
+{
+    return std::uniform_int_distribution<T>(std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
+}
+
+template <typename T>
+std::uniform_real_distribution<T> getDice(std::false_type)
+{
+    return std::uniform_real_distribution<T>(std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
+}
+
+template <typename T>
+T random()
+{
+    std::random_device randomDevice;
+    std::mt19937_64 generator(randomDevice());
+    auto dice = getDice<T>(std::integral_constant<bool, std::numeric_limits<T>::is_integer>());
+    return dice(generator);
+}
+
+template <>
+char random<char>()
+{
+    std::random_device rand;
+    std::mt19937 gen(rand());
+    std::uniform_int_distribution<> distr('a', 'z');
+    return (char)distr(gen);
+}
+
+template <>
+bool random<bool>()
+{
+    std::random_device rand;
+    std::mt19937 gen(rand());
+    std::uniform_int_distribution<> distr(0, 1);
+    return distr(gen);
+}
 template <typename T>
 class Images
 {
@@ -128,5 +167,45 @@ public:
         }
         return m;
     }
-    
+    Images operator!(const Images &first)
+    {
+        Images<T> m(first._x, first._y, false);
+        for (int i = 0; i < first._x; i++)
+        {
+            for (int j = 0; j < first._y; j++)
+            {
+                m._matrix[i][j] = -first._matrix[i][j];
+            }
+        }
+        return m;
+    }
+    template <>
+    Images<bool> operator!(const Images<bool> first)
+    {
+        Images<bool> m(first._x, first._y, false);
+        for (int i = 0; i < first._x; i++)
+        {
+            for (int j = 0; j < first._y; j++)
+            {
+                if (f._matrix[i][j] == 1)
+                    m._matrix[i][j] = 0;
+                else
+                    m._matrix[i][j] = 1;
+            }
+        }
+        return m;
+    }
+    template <>
+    Images<char> operator!(const Images<char> first)
+    {
+        Images<char> m(first._x, first._y, false);
+        for (int i = 0; i < first._x; i++)
+        {
+            for (int j = 0; j < first._y; j++)
+            {
+                m._matrix[i][j] = 'a' + ('z' - f._matrix[i][j]);
+            }
+        }
+        return m;
+    }
 };
