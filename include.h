@@ -56,7 +56,7 @@ public:
     {
         return _matrix[x][y];
     }
-    Images<T> operator*(const Images first, const Images second)
+    Images<T> operator*(const Images &first, const Images &second)
     {
         if (first._x != second._x || first._y != second._y)
             throw runtime_error("Different size");
@@ -65,14 +65,68 @@ public:
         {
             for (int j = 0; j < first._y; j++)
             {
-				if (first._matrix[i][j] * second._matrix[i][j] > std::numeric_limits<T>::max())
-					m._matrix[i][j] = std::numeric_limits<T>::max();
-				else if (first._matrix[i][j] * second._matrix[i][j] < std::numeric_limits<T>::min())
-					m._matrix[i][j] = std::numeric_limits<T>::min();
-				else
-					m._matrix[i][j] = first._matrix[i][j] * second._matrix[i][j];
-			}
+                if (first._matrix[i][j] * second._matrix[i][j] > std::numeric_limits<T>::max())
+                    m._matrix[i][j] = std::numeric_limits<T>::max();
+                else if (first._matrix[i][j] * second._matrix[i][j] < std::numeric_limits<T>::min())
+                    m._matrix[i][j] = std::numeric_limits<T>::min();
+                else
+                    m._matrix[i][j] = first._matrix[i][j] * second._matrix[i][j];
+            }
         }
         return m;
     }
+    Images<T> operator+(const Images &first, const Images &second)
+    {
+        if (first._x != second._x || first._y != second._y)
+            throw runtime_error("Different size");
+        Images<T> h(first._x, first._y, false);
+        for (int i = 0; i < first._x; i++)
+        {
+            for (int j = 0; j < first._y; j++)
+            {
+                if (first._matrix[i][j] + second._matrix[i][j] > std::numeric_limits<T>::max())
+                    m._matrix[i][j] = std::numeric_limits<T>::max();
+                else if (first._matrix[i][j] + second._matrix[i][j] < std::numeric_limits<T>::min())
+                    m._matrix[i][j] = std::numeric_limits<T>::min();
+                else
+                    m._matrix[i][j] = first._matrix[i][j] + second._matrix[i][j];
+            }
+        }
+        return m;
+    }
+    Images<T> operator*(const Images &first, T constant)
+    {
+        Images<T> m(first._x, first._y, false);
+        for (int i = 0; i < first._x; i++)
+        {
+            for (int j = 0; j < first._y; j++)
+            {
+                if (first._matrix[i][j] * constant > std::numeric_limits<T>::max())
+                    m._matrix[i][j] = std::numeric_limits<T>::max();
+                else if (first._matrix[i][j] * constant < std::numeric_limits<T>::min())
+                    m._matrix[i][j] = std::numeric_limits<T>::min();
+                else
+                    m._matrix[i][j] = first._matrix[i][j] * constant;
+            }
+        }
+        return m;
+    }
+    Images<T> operator+(const Images &first, T constant)
+    {
+        Images<T> m(first._x, first._y, false);
+        for (int i = 0; i < first._x; i++)
+        {
+            for (int j = 0; j < first._y; j++)
+            {
+                if (first._matrix[i][j] + constant > std::numeric_limits<T>::max())
+                    m._matrix[i][j] = std::numeric_limits<T>::max();
+                else if (first._matrix[i][j] + constant < std::numeric_limits<T>::min())
+                    m._matrix[i][j] = std::numeric_limits<T>::min();
+                else
+                    m._matrix[i][j] = first._matrix[i][j] + constant;
+            }
+        }
+        return m;
+    }
+    
 };
