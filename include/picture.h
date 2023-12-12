@@ -102,7 +102,7 @@ namespace picture {
         {
             return _y;
         }
-        Images<T> operator () (int x, int y) const
+        T& operator () (int x, int y) const
         {
             return _image[x][y];
         }
@@ -204,16 +204,27 @@ namespace picture {
         }
         void drawing(int x1, int y1, int x2, int y2)
         {
-            int p = y1 - 1;
-            for (int i = x1 - 1; i < x2; i++)
+            int pX = x1 - 1;
+            int pY = y1 - 1;
+            if (x2 > x1) {
+                for (int i = x1 - 1; i < x2; i++)
+                {
+                    _image[i][pY] = 1;
+                    if (y1 != y2)
+                        pY += 1;
+                }
+            }
+            else
             {
-                _image[i][p] = 1;
-                p += 1;
+                for (int i = y1 - 1; i < y2; i++)
+                {
+                    _image[pX][i] = 1;
+                }
             }
         }
     };
     template<typename T>
-    Images<T> operator!(const Images<T>& first)
+    Images<T> operator!(Images<T> first)
     {
         Images<T> m(first._x, first._y, false);
         for (int i = 0; i < first._x; i++)
@@ -226,30 +237,30 @@ namespace picture {
         return m;
     }
     template<>
-    Images<bool> operator!(const Images<bool>& first)
+    Images<bool> operator!(Images<bool> first)
     {
-        Images<bool> m(first.get_x, first.get_y, false);
-        for (int i = 0; i < first.get_x; i++)
+        Images<bool> m(first.get_x(), first.get_y(), false);
+        for (int i = 0; i < first.get_x(); i++)
         {
-            for (int j = 0; j < first.get_y; j++)
+            for (int j = 0; j < first.get_y(); j++)
             {
-                if (first.get_image[i][j] == 1)
-                    m.get_image[i][j] = 0;
+                if (first(i,j) == 1)
+                    m(i, j) = 0;
                 else
-                    m.get_image[i][j] = 1;
+                    m(i, j) = 1;
             }
         }
         return m;
     }
     template<>
-    Images<char> operator ! (const Images<char>& first)
+    Images<char> operator ! (Images<char> first)
     {
-        Images<char> m(first._x, first._y, false);
-        for (int i = 0; i < first._x; i++)
+        Images<char> m(first.get_x(), first.get_y(), false);
+        for (int i = 0; i < first.get_x(); i++)
         {
-            for (int j = 0; j < first._y; j++)
+            for (int j = 0; j < first.get_y(); j++)
             {
-                m._image[i][j] = 'a' + ('z' - first._image[i][j]);
+                m(i, j) = 'a' + ('z' - first(i, j));
             }
         }
         return m;

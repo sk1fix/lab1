@@ -3,7 +3,7 @@
 using namespace picture;
 int main()
 {
-    Images<bool> img(4, 4, true);
-    img.drawing(1, 2, 3, 4);
+    Images<int> img(5, 4, true);
+    img.drawing(1, 1, 3, 3);
     img.printImage();
 }
