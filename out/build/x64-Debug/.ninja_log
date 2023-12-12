@@ -1,0 +1,22 @@
+# ninja log v5
+12	1158	7241052157610594	CMakeFiles/halftone_images.dir/picture.cpp.obj	3454a3adc536df1b
+1158	1365	7241052157610594	halftone_images.dll	cba0e15a17cf03a6
+1371	1565	7241076807840997	picture.dll	853f7bbeeb31417a
+1158	1365	7241052157610594	halftone_images.lib	cba0e15a17cf03a6
+2	1128	7241053568801187	CMakeFiles/picture.dir/picture.cpp.obj	f1979470a2ca44bb
+1371	1565	7241076807840997	picture.lib	853f7bbeeb31417a
+2	1358	7241076806051010	CMakeFiles/picture.dir/include/picture.cpp.obj	63bf0bf77395cf0b
+7	1371	7241076806171021	CMakeFiles/picture.dir/main.cc.obj	4bed99a27c8448a0
+3	215	7241079815805392	CMakeFiles/picture.dir/src/picture.cc.obj	7a3a6486613136f7
+10	363	7241080045076756	picture.dll	f37c272d5eaedb7d
+10	363	7241080045076756	picture.lib	f37c272d5eaedb7d
+15	988	7241080053286752	CMakeFiles/console.dir/console/main.cc.obj	fc094897cde188af
+989	1223	7241080055516753	console.exe	a3ace3cae7ad841a
+2	1136	7241082733388325	CMakeFiles/console.dir/console/main.cc.obj	fc094897cde188af
+1137	1313	7241082734818318	console.exe	a3ace3cae7ad841a
+2	1116	7241086718212909	CMakeFiles/console.dir/console/main.cc.obj	fc094897cde188af
+1116	1270	7241086719473674	console.exe	a3ace3cae7ad841a
+11	1091	7241087203419001	CMakeFiles/console.dir/console/main.cc.obj	fc094897cde188af
+1092	1236	7241087204599009	console.exe	a3ace3cae7ad841a
+1	933	7241097308575711	CMakeFiles/console.dir/console/main.cc.obj	fc094897cde188af
+933	1066	7241097309575857	console.exe	a3ace3cae7ad841a
