@@ -47,24 +47,24 @@ template <typename T>
 class Images
 {
 private:
-    T **_matrix;
+    T **_image;
     int _x;
     int _y;
 
 public:
-    Images(int x, int y, Y *arr)
+    Images(int x, int y, T *arr)
     {
         if (x <= 0 || y <= 0)
             throw runtime_error("Wrong size");
         _x = x;
         _y = y;
-        _matrix = new T *[x];
+        _image = new T *[x];
         for (int i = 0; i < ; i++)
         {
-            _matrix = new T[y];
+            _image[i] = new T[y];
             for (int j = 0; j < y; j++)
             {
-                _matrix[i][j] = arr[i * x + j];
+                _image[i][j] = arr[i * x + j];
             }
         }
     }
@@ -74,26 +74,26 @@ public:
             throw runtime_error("Wrong size");
         _x = x;
         _y = y;
-        _matrix = new T *[x];
+        _image = new T *[x];
         for (int i = 0; i < ; i++)
         {
-            _matrix = new T[y];
+            _image[i] = new T[y];
             for (int j = 0; j < y; j++)
             {
                 if (rand == true)
                 {
-                    _matrix[i][j] = random<T>();
+                    _image[i][j] = random<T>();
                 }
                 else
                 {
-                    _matrix[i][j] = 0;
+                    _image[i][j] = 0;
                 }
             }
         }
     }
     Images<T> operator()(int x, int y) const
     {
-        return _matrix[x][y];
+        return _image[x][y];
     }
     Images<T> operator*(const Images &first, const Images &second)
     {
@@ -104,12 +104,12 @@ public:
         {
             for (int j = 0; j < first._y; j++)
             {
-                if (first._matrix[i][j] * second._matrix[i][j] > std::numeric_limits<T>::max())
-                    m._matrix[i][j] = std::numeric_limits<T>::max();
-                else if (first._matrix[i][j] * second._matrix[i][j] < std::numeric_limits<T>::min())
-                    m._matrix[i][j] = std::numeric_limits<T>::min();
+                if (first._image[i][j] * second._image[i][j] > std::numeric_limits<T>::max())
+                    m._image[i][j] = std::numeric_limits<T>::max();
+                else if (first._image[i][j] * second._image[i][j] < std::numeric_limits<T>::min())
+                    m._image[i][j] = std::numeric_limits<T>::min();
                 else
-                    m._matrix[i][j] = first._matrix[i][j] * second._matrix[i][j];
+                    m._image[i][j] = first._image[i][j] * second._image[i][j];
             }
         }
         return m;
@@ -123,12 +123,12 @@ public:
         {
             for (int j = 0; j < first._y; j++)
             {
-                if (first._matrix[i][j] + second._matrix[i][j] > std::numeric_limits<T>::max())
-                    m._matrix[i][j] = std::numeric_limits<T>::max();
-                else if (first._matrix[i][j] + second._matrix[i][j] < std::numeric_limits<T>::min())
-                    m._matrix[i][j] = std::numeric_limits<T>::min();
+                if (first._image[i][j] + second._image[i][j] > std::numeric_limits<T>::max())
+                    m._image[i][j] = std::numeric_limits<T>::max();
+                else if (first._image[i][j] + second._image[i][j] < std::numeric_limits<T>::min())
+                    m._image[i][j] = std::numeric_limits<T>::min();
                 else
-                    m._matrix[i][j] = first._matrix[i][j] + second._matrix[i][j];
+                    m._image[i][j] = first._image[i][j] + second._image[i][j];
             }
         }
         return m;
@@ -140,12 +140,12 @@ public:
         {
             for (int j = 0; j < first._y; j++)
             {
-                if (first._matrix[i][j] * constant > std::numeric_limits<T>::max())
-                    m._matrix[i][j] = std::numeric_limits<T>::max();
-                else if (first._matrix[i][j] * constant < std::numeric_limits<T>::min())
-                    m._matrix[i][j] = std::numeric_limits<T>::min();
+                if (first._image[i][j] * constant > std::numeric_limits<T>::max())
+                    m._image[i][j] = std::numeric_limits<T>::max();
+                else if (first._image[i][j] * constant < std::numeric_limits<T>::min())
+                    m._image[i][j] = std::numeric_limits<T>::min();
                 else
-                    m._matrix[i][j] = first._matrix[i][j] * constant;
+                    m._image[i][j] = first._image[i][j] * constant;
             }
         }
         return m;
@@ -157,12 +157,12 @@ public:
         {
             for (int j = 0; j < first._y; j++)
             {
-                if (first._matrix[i][j] + constant > std::numeric_limits<T>::max())
-                    m._matrix[i][j] = std::numeric_limits<T>::max();
-                else if (first._matrix[i][j] + constant < std::numeric_limits<T>::min())
-                    m._matrix[i][j] = std::numeric_limits<T>::min();
+                if (first._image[i][j] + constant > std::numeric_limits<T>::max())
+                    m._image[i][j] = std::numeric_limits<T>::max();
+                else if (first._image[i][j] + constant < std::numeric_limits<T>::min())
+                    m._image[i][j] = std::numeric_limits<T>::min();
                 else
-                    m._matrix[i][j] = first._matrix[i][j] + constant;
+                    m._image[i][j] = first._image[i][j] + constant;
             }
         }
         return m;
@@ -174,7 +174,7 @@ public:
         {
             for (int j = 0; j < first._y; j++)
             {
-                m._matrix[i][j] = -first._matrix[i][j];
+                m._image[i][j] = -first._image[i][j];
             }
         }
         return m;
@@ -187,10 +187,10 @@ public:
         {
             for (int j = 0; j < first._y; j++)
             {
-                if (f._matrix[i][j] == 1)
-                    m._matrix[i][j] = 0;
+                if (f._image[i][j] == 1)
+                    m._image[i][j] = 0;
                 else
-                    m._matrix[i][j] = 1;
+                    m._image[i][j] = 1;
             }
         }
         return m;
@@ -203,9 +203,48 @@ public:
         {
             for (int j = 0; j < first._y; j++)
             {
-                m._matrix[i][j] = 'a' + ('z' - f._matrix[i][j]);
+                m._image[i][j] = 'a' + ('z' - f._image[i][j]);
             }
         }
         return m;
     }
+    float calculating_the_image_fill_factor()
+    {
+        float ctiff = 0;
+        float max_value = _x * _y * std::numeric_limits<T>::max();
+        for (int i = 0; i < _x; i++)
+        {
+            for (int j = 0; j < _y; j++)
+            {
+                ctiff += _image[i][j] / max_value;
+            }
+        }
+    }
+    void printImage()
+    {
+        for (int i = 0; i < _x; i++)
+        {
+            for (int j = 0; j < _y; j++)
+            {
+                std::cout << image[i][j] << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+    void drawing(int x1, int y1, int x2, int y2)
+    {
+        int p = y1 - 1;
+        for (int i = x1 - 1; i < x2; i++)
+        {
+            _image[i][p] = "*";
+            p += 1;
+        }
+    }
 };
+
+int main()
+{
+    Images<char> img(4, 4, false);
+    img.drawing(1, 2, 3, 4);
+    img.printImage();
+}
