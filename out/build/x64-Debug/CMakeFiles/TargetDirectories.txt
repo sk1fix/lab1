@@ -1,4 +1,4 @@
-D:/lab1/out/build/x64-Debug/CMakeFiles/picture.dir
-D:/lab1/out/build/x64-Debug/CMakeFiles/console.dir
-D:/lab1/out/build/x64-Debug/CMakeFiles/edit_cache.dir
-D:/lab1/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Lenovo/source/repos/lab1/out/build/x64-Debug/CMakeFiles/picture.dir
+C:/Users/Lenovo/source/repos/lab1/out/build/x64-Debug/CMakeFiles/console.dir
+C:/Users/Lenovo/source/repos/lab1/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/Lenovo/source/repos/lab1/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir

@@ -54,7 +54,13 @@ namespace picture {
         int _y;
 
     public:
-        Images(int x, int y, T* arr)
+        Images() {
+            _image = nullptr;
+            _x = 0;
+            _y = 0;
+        }
+
+        Images(int x, int y, T** arr)
         {
             if (x <= 0 || y <= 0)
                 throw runtime_error("Wrong size");
@@ -66,7 +72,7 @@ namespace picture {
                 _image[i] = new T[y];
                 for (int j = 0; j < y; j++)
                 {
-                    _image[i][j] = arr[i * x + j];
+                    _image[i][j] = arr[i][j];
                 }
             }
         }
@@ -105,6 +111,17 @@ namespace picture {
         T& operator () (int x, int y) const
         {
             return _image[x][y];
+        }
+        friend ostream& operator<<(ostream& os, const Images& img) {
+            for (int i = 0; i < img._x; ++i)
+            {
+                for (int j = 0; j < img._y; ++j)
+                {
+                    os << img._image[i][j] << " ";
+                }
+                os << endl;
+            }
+            return os;
         }
         friend Images<T> operator* (const Images& first, const Images& second)
         {
@@ -178,6 +195,33 @@ namespace picture {
             }
             return m;
         }
+        friend bool operator==(const Images& first, const Images& second)
+        {
+            if (first._x != second._x || first._y != second._y)
+                return false;
+            for (int i = 0; i < first._x; i++)
+            {
+                for (int j = 0; j < first._y; j++)
+                {
+                    if (first._image[i][j] != second._image[i][j])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        ~Images() 
+        {
+            if (_image != nullptr)
+            {
+                for (int i = 0; i < _x; i++)
+                {
+                    delete _image[i];
+                }
+                delete _image;
+            }
+        }
         float calculating_the_image_fill_factor()
         {
             float ctiff = 0;
@@ -204,21 +248,23 @@ namespace picture {
         }
         void drawing(int x1, int y1, int x2, int y2)
         {
-            int pX = x1 - 1;
-            int pY = y1 - 1;
-            if (x2 > x1) {
-                for (int i = x1 - 1; i < x2; i++)
-                {
-                    _image[i][pY] = 1;
-                    if (y1 != y2)
-                        pY += 1;
+            int dx = abs(x2 - x1);
+            int dy = abs(y2 - y1);
+            int sx = (x1 < x2) ? 1 : -1;
+            int sy = (y1 < y2) ? 1 : -1;
+            int err = dx - dy;
+
+            while (true) {
+                _image[x1 - 1][y1 - 1] = 1;
+                if (x1 == x2 && y1 == y2) break;
+                int e1 = 2 * err;
+                if (e1 > -dy) {
+                    err -= dy;
+                    x1 += sx;
                 }
-            }
-            else
-            {
-                for (int i = y1 - 1; i < y2; i++)
-                {
-                    _image[pX][i] = 1;
+                if (e1 < dx) {
+                    err += dx;
+                    y1 += sy;
                 }
             }
         }

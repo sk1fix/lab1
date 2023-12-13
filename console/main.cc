@@ -3,7 +3,7 @@
 using namespace picture;
 int main()
 {
-    Images<int> img(5, 4, true);
-    img.drawing(1, 1, 3, 3);
-    img.printImage();
+    Images<bool> img(10, 10, false);
+    img.drawing(9, 7, 2, 2);
+    cout << img;
 }
